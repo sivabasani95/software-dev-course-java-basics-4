@@ -5,51 +5,81 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentManager {
+
+    // Scanner for user input
     private Scanner scanner = new Scanner(System.in);
+
+    // List to store student names
     private List<String> students = new ArrayList<>();
 
     public void mainMenu() {
-        System.out.println("Welcome to the student manager!");
-        System.out.println("1. Add student");
-        System.out.println("2. Remove student");
-        System.out.println("3. View all students");
-        System.out.println("4. Exit");
 
-        String choice = scanner.nextLine();
+        // Loop so menu keeps running
+        while (true) {
 
-        if (choice.equals("1")) {
-            addStudent();
-        } else if (choice.equals("2")) {
-            removeStudent();
-        } else if (choice.equals("3")) {
-            viewStudents();
-        } else if (choice.equals("4")) {
-            System.out.println("Goodbye!");
-            System.exit(0);
-        } else {
-            System.out.println("Invalid choice. Please try again.");
+            System.out.println("\n=== Student Manager ===");
+            System.out.println("1. Add student");
+            System.out.println("2. Remove student");
+            System.out.println("3. View all students");
+            System.out.println("4. Exit");
+
+            System.out.print("Enter your choice: ");
+            String choice = scanner.nextLine();
+
+            if (choice.equals("1")) {
+                addStudent();
+            } else if (choice.equals("2")) {
+                removeStudent();
+            } else if (choice.equals("3")) {
+                viewStudents();
+            } else if (choice.equals("4")) {
+                System.out.println("Goodbye!");
+                break; // exits loop
+            } else {
+                System.out.println("Invalid choice. Try again.");
+            }
         }
     }
 
     public void addStudent() {
-        // Prompt the user to enter a new student name (using scanner and I/O methods learned previously,
-        // refer to mainMenu() for an example)
-        // Add the student to the list
+        // Ask user for name
+        System.out.print("Enter student name: ");
+        String name = scanner.nextLine();
 
-        mainMenu();
+        // Add to list
+        students.add(name);
+
+        // Confirmation
+        System.out.println(name + " added successfully.");
     }
 
     public void removeStudent() {
-        // Prompt the user for a student name
-        // Use the contains method to check if the student entered is in the list
-        // If so, remove it, if not, print "Student not found."
+        // Ask user for name
+        System.out.print("Enter student name to remove: ");
+        String name = scanner.nextLine();
 
-        mainMenu();
+        // Check and remove
+        if (students.contains(name)) {
+            students.remove(name);
+            System.out.println(name + " removed successfully.");
+        } else {
+            System.out.println("Student not found.");
+        }
     }
 
     public void viewStudents() {
-        // Loop through the list of students and print each one
-        // (Use a for-each loop!)
-        mainMenu();
+
+        // Check if list is empty
+        if (students.isEmpty()) {
+            System.out.println("No students found.");
+            return;
+        }
+
+        System.out.println("\nStudent List:");
+
+        // Loop and print
+        for (String student : students) {
+            System.out.println(student);
+        }
     }
 }
